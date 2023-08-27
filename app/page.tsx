@@ -7,7 +7,7 @@ export default function Home() {
       {
         questions.map(
           (q: MultipleChoiceProps, i: number) =>
-            <MultipleChoice key={q.sequence} {...q} sequence={i +1} />
+            <MultipleChoice key={q.order} {...q} order={i +1} />
         )
       }
     </main>

@@ -8,6 +8,7 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './presents/**/*.{js,ts,jsx,tsx,mdx}',
     './containers/**/*.{js,ts,jsx,tsx,mdx}',
+    './stores/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
