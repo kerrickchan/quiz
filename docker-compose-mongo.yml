@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:6.0.9
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+      - mongo_config:/data/configdb
+      - ./init/mongo/initdb/:/docker-entrypoint-initdb.d/:ro
+    expose:
+      - 27017
+    networks:
+      - mongo_net
+    healthcheck:
+      test: mongosh --eval 'db.runCommand("ping").ok' --quiet
+      interval: 5s
+      timeout: 5s
+      retries: 3
+
+  mongo-express:
+    image: mongo-express
+    restart: unless-stopped
+    environment:
+      ME_CONFIG_MONGODB_URL: "mongodb://mongo:27017?replicaSet=rs0"
+    networks:
+      - mongo_net
+    ports:
+      - 8081:8081
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+volumes:
+  mongo_data:
+  mongo_config:
+
+networks:
+  mongo_net:
+    driver: bridge

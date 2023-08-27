@@ -1,0 +1,76 @@
+version: '3.8'
+
+name: mongo
+
+services:
+  mongo:
+    extends:
+      file: ./docker-compose-mongo.yml
+      service: mongo
+    links:
+      - mongo2
+      - mongo3
+    ports:
+      - 27017:27017
+    command: ["/usr/bin/mongod", "--replSet", "rs0", "--bind_ip_all", "--port", "27017"]
+
+  mongo2:
+    extends:
+      file: ./docker-compose-mongo.yml
+      service: mongo
+    volumes:
+      - mongo2_data:/data/db
+      - mongo2_config:/data/configdb
+      - ./init/mongo/initdb/:/docker-entrypoint-initdb.d/:ro
+    ports:
+      - 27018:27017
+    command: ["/usr/bin/mongod", "--replSet", "rs0", "--bind_ip_all", "--port", "27017"]
+
+  mongo3:
+    extends:
+      file: ./docker-compose-mongo.yml
+      service: mongo
+    volumes:
+      - mongo3_data:/data/db
+      - mongo3_config:/data/configdb
+      - ./init/mongo/initdb/:/docker-entrypoint-initdb.d/:ro
+    ports:
+      - 27019:27017
+    command: ["/usr/bin/mongod", "--replSet", "rs0", "--bind_ip_all", "--port", "27017"]
+
+  mongo-setup:
+    extends:
+      file: ./docker-compose-mongo.yml
+      service: mongo
+    links:
+      - mongo
+      - mongo2
+      - mongo3
+    depends_on:
+      - mongo:
+        condition: service_healthy
+      - mongo2:
+        condition: service_healthy
+      - mongo3:
+        condition: service_healthy
+    volumes:
+      - ./init/mongo/setup/:/scripts/
+    restart: "no"
+    entrypoint: [ "bash", "/scripts/mongo_setup.sh"]
+
+  mongo-express:
+    extends:
+      file: ./docker-compose-mongo.yml
+      service: mongo-express
+
+volumes:
+  mongo_data:
+  mongo_config:
+  mongo2_data:
+  mongo2_config:
+  mongo3_data:
+  mongo3_config:
+
+networks:
+  mongo_net:
+    driver: bridge

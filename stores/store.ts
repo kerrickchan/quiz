@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { choiceReducer } from './choiceSlice'
+import { quizReducer } from './quizSlice'
 
 export const store = configureStore({
   reducer: {
-    choose: choiceReducer,
+    quiz: quizReducer,
   },
 })
 

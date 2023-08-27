@@ -9,6 +9,7 @@ const config: Config = {
     './presents/**/*.{js,ts,jsx,tsx,mdx}',
     './containers/**/*.{js,ts,jsx,tsx,mdx}',
     './stores/**/*.{js,ts,jsx,tsx,mdx}',
+    './models/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {

@@ -1,23 +1,20 @@
+import { IOption } from "@/models";
 import { Radio } from "@material-tailwind/react";
 import { ChangeEventHandler } from "react";
 
 export { Option, type OptionProps }
 
-interface OptionProps {
+interface OptionProps extends Omit<IOption, 'question' | 'order'> {
   name: string;
-  value: string;
-  text: string;
-  checked: boolean;
   onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
-function Option({ name, value, text, checked, onChange }: OptionProps): React.JSX.Element {
+function Option({ name, value, text, onChange }: OptionProps): React.JSX.Element {
   return (
     <Radio
       name={name}
       label={text}
       value={value}
-      checked={checked}
       onChange={onChange}
       color='purple'
       crossOrigin='*'

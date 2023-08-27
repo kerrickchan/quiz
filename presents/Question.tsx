@@ -1,9 +1,9 @@
+import { IQuestion } from "@/models";
 import { Typography } from "@material-tailwind/react";
 
 export { Question, type QuestionProps }
 
-interface QuestionProps {
-  text: string;
+interface QuestionProps extends IQuestion {
 }
 
 function Question({ text }: QuestionProps) {
