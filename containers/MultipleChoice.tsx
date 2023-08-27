@@ -21,7 +21,7 @@ function MultipleChoice({ order, question, options }: MultipleChoiceProps) {
   const dispatch = useAppDispatch();
 
   return (
-    <Card className='w-full h-fit hover:drop-shadow-xl'>
+    <Card className='w-full h-fit hover:drop-shadow-xl duration-300'>
       <CardHeader className='p-4' color="deep-purple">
         <Question text={`${order}. ${question}`} />
       </CardHeader>
