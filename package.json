@@ -1,6 +1,6 @@
 {
-  "name": "multiple-choice",
-  "version": "0.1.0",
+  "name": "quiz",
+  "version": "0.0.3",
   "private": true,
   "scripts": {
     "dev": "next dev",
