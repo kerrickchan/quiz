@@ -4,6 +4,7 @@ import { IOption } from "@/models";
 export { Question, type IQuestion }
 
 interface IQuestion {
+  _id?: string;
   code: string;
   text: string;
   order: number;

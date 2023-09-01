@@ -1,26 +1,22 @@
 import { Schema, model } from "mongoose"
 import { IQuestion } from "@/models";
 
-export { Option, type IOption }
+export { Answer, type IAnswer }
 
-interface IOption {
+interface IAnswer {
   _id?: string;
   question: IQuestion;
-  text: string;
   value: string;
-  order: number;
 }
 
-const optionSchema = new Schema(
+const answerSchema = new Schema(
   {
     question: {
       type: Schema.Types.ObjectId,
       ref: 'Question',
     },
-    text: String,
     value: String,
-    order: Number,
   },
 )
 
-const Option = model<IOption>("Option", optionSchema)
+const Answer = model<IAnswer>("Answer", answerSchema)
